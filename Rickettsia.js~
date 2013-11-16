@@ -1,0 +1,66 @@
+
+var Robot = function(robot) {
+
+};
+
+Robot.prototype.onIdle = function(ev) {
+    var robot = ev.robot;
+    //robot.ahead(200);
+    //robot.rotateCannon(360);
+    ///robot.back(100);
+    robot.rotateCannon(360);
+    robot.turn(90);
+  	robot.ahead(200)
+};
+
+
+Robot.prototype.onScannedRobot = function(ev) {
+    var robot = ev.robot;
+    var scannedRobot = ev.scannedRobot;
+    //robot.ahead(100);
+    for (var i=0; i < 10; i++) {
+        robot.fire();
+    }
+};
+
+
+Robot.prototype.onRobotCollision = function(ev) {
+	var robot = ev.robot;// You                                                                                                                    
+  var otherRobot = ev.collidedRobot; // Them                                                                                                     
+  if (ev.myFault && otherRobot.life > robot.life) {                                                                                            
+	// They are healthier than us! Run away!                                                                                                   
+		robot.turn(50);                                                                                                                            
+		robot.ahead(100);                                                                                                                          
+	}
+  else {
+    robot.clone();
+  }
+};
+
+
+Robot.prototype.onRobotCollision = function(ev) {
+    var robot = ev.robot;// You                                                                                                                    
+    var otherRobot = ev.collidedRobot; // Them                                                                                                     
+    if (ev.myFault && otherRobot.life > robot.life) {
+        // They are healthier than us! Run away!                                                                                                   
+        robot.turn(20);
+        robot.ahead(100);
+    }
+};
+
+Robot.prototype.onWallCollision = function(ev) {
+    var robot;
+    robot.turn(120);
+    robot.fire();
+    robot.ahead(100);
+  
+    robot.clone()
+
+}
+
+Robot.prototype.onHitByBullet = function(ev) {
+    var robot;
+    robot = ev.robot;
+    robot.turn(90 - ev.bulletBearing);
+};
+
